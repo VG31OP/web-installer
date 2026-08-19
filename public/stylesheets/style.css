@@ -1,0 +1,841 @@
+/* ==========================================
+   MAXIMALIST CYBER-DASHBOARD STYLE SYSTEM
+   ========================================== */
+
+:root {
+  --bg-darker: #05070f;
+  --bg-card: rgba(10, 15, 30, 0.85);
+  --neon-cyan: #00f0ff;
+  --neon-pink: #ff007f;
+  --neon-green: #39ff14;
+  --neon-yellow: #ffe600;
+  --neon-indigo: #8b5cf6;
+  --border-cyan: rgba(0, 240, 255, 0.4);
+  --border-pink: rgba(255, 0, 127, 0.4);
+  --text-main: #f3f4f6;
+  --text-muted: #6b7280;
+  --scanline-color: rgba(18, 16, 16, 0.1);
+  --cyber-grid: rgba(0, 240, 255, 0.04);
+}
+
+/* Base resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-darker);
+  /* Cyber Grid & Background Blobs */
+  background-image: 
+    linear-gradient(var(--cyber-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cyber-grid) 1px, transparent 1px),
+    radial-gradient(circle at 15% 20%, rgba(255, 0, 127, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.15) 0%, transparent 40%);
+  background-size: 30px 30px, 30px 30px, 100% 100%, 100% 100%;
+  color: var(--text-main);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* CRT Scanlines Overlay */
+.crt-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+  background-size: 100% 4px, 6px 100%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* App Header Styling */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: rgba(5, 7, 15, 0.9);
+  border-bottom: 3px solid var(--neon-cyan);
+  box-shadow: 0 5px 20px rgba(0, 240, 255, 0.25);
+  position: relative;
+  z-index: 10;
+}
+
+/* Glitch Typography Logo */
+.logo-glitch-wrapper {
+  position: relative;
+}
+
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #fff;
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-darker);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--neon-pink);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--neon-cyan), 0 2px var(--neon-pink);
+  clip: rect(85px, 450px, 140px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(31px, 9999px, 94px, 0); }
+  10% { clip: rect(112px, 9999px, 76px, 0); }
+  20% { clip: rect(85px, 9999px, 5px, 0); }
+  30% { clip: rect(27px, 9999px, 115px, 0); }
+  40% { clip: rect(73px, 9999px, 29px, 0); }
+  50% { clip: rect(118px, 9999px, 140px, 0); }
+  60% { clip: rect(9px, 9999px, 43px, 0); }
+  70% { clip: rect(102px, 9999px, 88px, 0); }
+  80% { clip: rect(56px, 9999px, 122px, 0); }
+  90% { clip: rect(138px, 9999px, 60px, 0); }
+  100% { clip: rect(40px, 9999px, 105px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(76px, 9999px, 116px, 0); }
+  11% { clip: rect(15px, 9999px, 83px, 0); }
+  22% { clip: rect(95px, 9999px, 35px, 0); }
+  33% { clip: rect(120px, 9999px, 65px, 0); }
+  44% { clip: rect(43px, 9999px, 138px, 0); }
+  55% { clip: rect(89px, 9999px, 9px, 0); }
+  66% { clip: rect(14px, 9999px, 102px, 0); }
+  77% { clip: rect(111px, 9999px, 56px, 0); }
+  88% { clip: rect(58px, 9999px, 125px, 0); }
+  99% { clip: rect(135px, 9999px, 47px, 0); }
+  100% { clip: rect(20px, 9999px, 95px, 0); }
+}
+
+/* Progress Indicator Bar */
+.loader-header {
+  position: relative;
+  width: 100%;
+}
+
+#progress[aria-busy="true"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--neon-pink),
+    var(--neon-pink) 10px,
+    var(--neon-cyan) 10px,
+    var(--neon-cyan) 20px
+  );
+  background-size: 40px 40px;
+  animation: stripe-move 1s linear infinite;
+  box-shadow: 0 0 15px var(--neon-pink);
+  z-index: 10;
+}
+
+@keyframes stripe-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 0; }
+}
+
+/* Main Dashboard Layout */
+.app-container {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+  width: 100%;
+}
+
+.dashboard-col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Cyber Card Styles (Brutalist Cyberpunk) */
+.cyber-card {
+  background-color: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 4px;
+  padding: 30px;
+  position: relative;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(0, 240, 255, 0.15),
+    inset 0 0 15px rgba(0, 240, 255, 0.08);
+}
+
+/* Alternate pink-bordered cards */
+.cyber-card.telemetry-deck,
+.cyber-card.identity-badge {
+  border-color: var(--neon-pink);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(255, 0, 127, 0.15),
+    inset 0 0 15px rgba(255, 0, 127, 0.08);
+}
+
+/* Corner Bracket Accents */
+.cyber-corner-tr {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 16px;
+  height: 16px;
+  border-top: 3px solid var(--neon-pink);
+  border-right: 3px solid var(--neon-pink);
+}
+
+.cyber-corner-bl {
+  position: absolute;
+  bottom: -2px;
+  left: -2px;
+  width: 16px;
+  height: 16px;
+  border-bottom: 3px solid var(--neon-pink);
+  border-left: 3px solid var(--neon-pink);
+}
+
+.cyber-card.telemetry-deck .cyber-corner-tr,
+.cyber-card.telemetry-deck .cyber-corner-bl,
+.cyber-card.identity-badge .cyber-corner-tr,
+.cyber-card.identity-badge .cyber-corner-bl {
+  border-color: var(--neon-cyan);
+}
+
+/* System Label Tag */
+.card-tag {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background-color: var(--neon-cyan);
+  color: #000;
+  font-family: monospace;
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.cyber-card.telemetry-deck .card-tag,
+.cyber-card.identity-badge .card-tag {
+  background-color: var(--neon-pink);
+  color: #fff;
+  box-shadow: 0 0 8px var(--neon-pink);
+}
+
+/* Globe Wireframe Animation */
+.globe-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.neon-globe-svg {
+  color: var(--neon-cyan);
+  filter: drop-shadow(0 0 8px var(--neon-cyan));
+  animation: globeRotate 24s linear infinite;
+}
+
+@keyframes globeRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.circle-globe {
+  stroke-dasharray: 4;
+}
+
+.path-globe {
+  animation: pulse-stroke 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-stroke {
+  0% { stroke-width: 0.6; }
+  100% { stroke-width: 1.4; filter: drop-shadow(0 0 3px var(--neon-pink)); }
+}
+
+/* Headings */
+.console-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.4));
+}
+
+.console-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.4;
+}
+
+/* Custom Input Field */
+.cyber-input-group {
+  display: flex;
+  align-items: center;
+  background-color: rgba(5, 7, 15, 0.9);
+  border: 1px solid var(--border-cyan);
+  border-radius: 4px;
+  padding: 6px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.cyber-input-group:focus-within {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.4), inset 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.input-prefix {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--neon-cyan);
+  padding: 0 10px;
+  font-weight: 700;
+  text-shadow: 0 0 4px var(--neon-cyan);
+}
+
+.url-input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 12px 10px;
+  font-size: 0.95rem;
+  font-family: monospace;
+}
+
+.url-input::placeholder {
+  color: rgba(0, 240, 255, 0.25);
+}
+
+.url-input:focus {
+  outline: none;
+}
+
+/* Brutalist Deploy Button */
+.download-btn {
+  background: var(--neon-cyan);
+  color: #000;
+  border: none;
+  font-family: monospace;
+  font-weight: 900;
+  padding: 12px 24px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.download-btn:hover {
+  background: #fff;
+  box-shadow: 0 0 20px var(--neon-cyan);
+  transform: scale(1.03);
+}
+
+.download-btn:active {
+  transform: scale(0.97);
+}
+
+.download-btn:disabled {
+  background: #1f2937;
+  color: #4b5563;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Telemetry Stats Grid */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.tel-box {
+  background-color: rgba(5, 7, 15, 0.8);
+  border: 1px solid var(--border-pink);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 2px;
+}
+
+.tel-label {
+  font-size: 0.65rem;
+  font-family: monospace;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.tel-val {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.tel-val.neon-green { color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green); }
+.tel-val.text-cyan { color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan); }
+.tel-val.text-pink { color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink); }
+.tel-val.text-indigo { color: var(--neon-indigo); text-shadow: 0 0 5px var(--neon-indigo); }
+
+/* Terminal Windows & Logs */
+.terminal-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(5, 7, 15, 0.9);
+  padding: 10px 16px;
+  border: 1px solid var(--border-cyan);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.terminal-dot.red { background-color: var(--neon-pink); box-shadow: 0 0 4px var(--neon-pink); }
+.terminal-dot.yellow { background-color: var(--neon-yellow); box-shadow: 0 0 4px var(--neon-yellow); }
+.terminal-dot.green { background-color: var(--neon-green); box-shadow: 0 0 4px var(--neon-green); }
+
+.status-counter-inline {
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: var(--neon-cyan);
+  font-weight: 700;
+  text-shadow: 0 0 4px var(--neon-cyan);
+}
+
+.terminal-window {
+  background-color: rgba(5, 7, 15, 0.95);
+  border: 1px solid var(--border-cyan);
+  border-radius: 0 0 4px 4px;
+  padding: 16px;
+  box-shadow: inset 0 3px 10px rgba(0,0,0,0.9);
+  margin-bottom: 20px;
+}
+
+.terminal-inner {
+  height: 180px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Custom Scrollbar for terminal */
+.terminal-inner::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-inner::-webkit-scrollbar-track {
+  background: rgba(5, 7, 15, 0.6);
+}
+
+.terminal-inner::-webkit-scrollbar-thumb {
+  background: var(--neon-pink);
+  border-radius: 2px;
+  box-shadow: 0 0 4px var(--neon-pink);
+}
+
+.log {
+  font-family: 'Consolas', 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--neon-green);
+  text-shadow: 0 0 3px rgba(57, 255, 20, 0.4);
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+/* High-Contrast Success/Download ZIP Button */
+.download-zip-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--neon-pink) 0%, #c084fc 100%);
+  color: #fff;
+  border: none;
+  font-family: monospace;
+  font-weight: 900;
+  font-size: 1rem;
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: 0.08em;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+  animation: buttonPulse 2s infinite alternate;
+}
+
+@keyframes buttonPulse {
+  0% { box-shadow: 0 0 10px rgba(255, 0, 127, 0.3); }
+  100% { box-shadow: 0 0 25px rgba(255, 0, 127, 0.7); }
+}
+
+.download-zip-btn:hover {
+  transform: translateY(-2px);
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 30px var(--neon-pink);
+}
+
+.download-zip-btn:active {
+  transform: translateY(0);
+}
+
+.zip-icon {
+  animation: bounceZip 1.5s infinite;
+}
+
+@keyframes bounceZip {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Identity Badge styling */
+.id-badge-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.badge-barcode {
+  display: flex;
+  align-items: flex-end;
+  height: 50px;
+  background-color: rgba(255,255,255,0.03);
+  padding: 6px;
+  border-radius: 2px;
+}
+
+.barcode-line {
+  display: block;
+  width: 3px;
+  height: 100%;
+  background-color: var(--neon-pink);
+  margin-right: 2px;
+  box-shadow: 0 0 3px var(--neon-pink);
+}
+
+.barcode-line.thin { width: 1px; }
+.barcode-line.thick { width: 6px; }
+
+.badge-info {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.dev-name {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+.dev-handle {
+  font-size: 0.7rem;
+  font-family: monospace;
+  color: var(--neon-pink);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.dev-link-btn {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  text-decoration: none;
+  background: rgba(0, 240, 255, 0.05);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.dev-link-btn:hover {
+  background: var(--neon-cyan);
+  color: #000;
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.badge-seal {
+  background: rgba(255, 0, 127, 0.05);
+  border: 1px dashed var(--neon-pink);
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-12deg);
+}
+
+.seal-inner {
+  font-family: monospace;
+  font-size: 0.5rem;
+  font-weight: 900;
+  color: var(--neon-pink);
+  text-align: center;
+}
+
+/* Footer spacing */
+.app-footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Giant Bouncing Cyber Arrow Indicator */
+.cyber-arrow-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  color: var(--neon-pink);
+  pointer-events: none;
+}
+
+.arrow-text {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  text-shadow: 0 0 8px var(--neon-pink);
+  margin-bottom: 8px;
+  animation: flashArrowText 1.5s infinite alternate;
+}
+
+.giant-cyber-arrow {
+  color: var(--neon-pink);
+  filter: drop-shadow(0 0 10px var(--neon-pink));
+  animation: bounceCyberArrow 1.2s infinite ease-in-out;
+}
+
+@keyframes bounceCyberArrow {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 0 5px var(--neon-pink));
+  }
+  50% {
+    transform: translateY(12px);
+    filter: drop-shadow(0 0 15px var(--neon-pink));
+  }
+}
+
+@keyframes flashArrowText {
+  0% {
+    opacity: 0.4;
+    color: var(--neon-pink);
+  }
+  100% {
+    opacity: 1;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+  }
+}
+
+/* Responsive queries */
+@media (max-width: 800px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-header {
+    padding: 12px 16px;
+    border-bottom-width: 2px;
+  }
+
+  .logo-text {
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+  }
+
+  .app-container {
+    padding: 20px 12px;
+  }
+
+  .cyber-card {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+
+  .card-tag {
+    font-size: 0.6rem;
+    left: 12px;
+    top: -10px;
+  }
+
+  .console-title {
+    font-size: 1.4rem;
+  }
+
+  .console-subtitle {
+    margin-bottom: 20px;
+    font-size: 0.78rem;
+  }
+
+  /* Clever CSS Grid stacking for URL input form on mobile */
+  .cyber-input-group {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .input-prefix {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    background-color: rgba(5, 7, 15, 0.95);
+    border: 1px solid var(--border-cyan);
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    margin: 0;
+    padding: 0 12px;
+    font-size: 0.8rem;
+  }
+
+  .url-input {
+    grid-column: 2;
+    grid-row: 1;
+    background-color: rgba(5, 7, 15, 0.95);
+    border: 1px solid var(--border-cyan);
+    border-radius: 0 4px 4px 0;
+    width: 100%;
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+
+  .download-btn {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    border-radius: 4px;
+  }
+
+  .telemetry-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .tel-box {
+    padding: 10px 12px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tel-val {
+    font-size: 0.85rem;
+  }
+
+  .terminal-inner {
+    height: 150px;
+  }
+
+  /* Stack developer badge fields vertically */
+  .id-badge-body {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .badge-barcode {
+    height: 35px;
+    justify-content: center;
+    width: 100%;
+    background: transparent;
+  }
+
+  .badge-info {
+    text-align: center;
+  }
+
+  .dev-name {
+    font-size: 1.05rem;
+  }
+
+  .dev-handle {
+    font-size: 0.65rem;
+  }
+
+  .badge-seal {
+    transform: rotate(0deg);
+    margin: 0 auto;
+  }
+}
