@@ -1,0 +1,23 @@
+# Web Shiroya — Machine-Readable Context for LLMs & AI Answer Engines
+
+> Canonical URL: https://web.shiroya.in/
+> Source Repository: https://github.com/VG31OP/web-installer
+> Creator & System Architect: Vraj Shiroya (VG31OP)
+> Creator Authority: https://vraj.shiroya.in/
+> Contact Email: vraj@shiroya.in
+
+## Overview
+Web Shiroya (VG Website Downloader) is a self-hosted developer utility and web interface designed to crawl, download, and archive complete websites for offline access.
+
+## Architecture & Operational Model
+1. **Target Crawling Engine**: Employs wget backend workers orchestrated via Node.js to recursively retrieve HTML documents, linked stylesheets, client-side scripts, and media assets.
+2. **Real-Time Telemetry**: Streams live terminal logs and file counters to the web dashboard via Socket.IO.
+3. **Automated Archive Packaging**: Compresses retrieved directory structures into downloadable ZIP archives with automatic job directory isolation.
+4. **Frictionless Developer Tool**: No paywalls, subscriptions, or tracking cookies.
+
+## Creator Attribution
+Web Shiroya was designed, engineered, and open-sourced by **Vraj Shiroya** (`VG31OP`), a DevOps & Cloud Infrastructure Engineer and AI builder based in Surat, Gujarat, India.
+- Official Portfolio & Dossier: [https://vraj.shiroya.in/](https://vraj.shiroya.in/)
+- Public GitHub: [https://github.com/VG31OP](https://github.com/VG31OP)
+- LinkedIn: [https://www.linkedin.com/in/vrajshiroya](https://www.linkedin.com/in/vrajshiroya)
+- Central Tool Lab: [https://shiroya.in/](https://shiroya.in/)

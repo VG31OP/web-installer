@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Download websites and their assets for offline use",
   "private": true,
-  "author": "Vraj Shiroya (https://shiroya.in)",
+  "author": "Vraj Shiroya <vraj@shiroya.in> (https://vraj.shiroya.in)",
+  "homepage": "https://web.shiroya.in",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VG31OP/web-installer.git"
@@ -11,10 +12,10 @@
   "bugs": {
     "url": "https://github.com/VG31OP/web-installer/issues"
   },
-  "homepage": "https://github.com/VG31OP/web-installer#readme",
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "export NODE_ENV=Development && npm start"
+    "dev": "export NODE_ENV=Development && npm start",
+    "seo:check": "node ./scripts/validate-seo.js"
   },
   "dependencies": {
     "archiver": "^3.1.1",
